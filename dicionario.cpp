@@ -4,7 +4,7 @@
 using namespace std;
 
 // Tema do projeto: Dicionário para Línga Fictícia
-// Equipe: Eduardo Ribeiro Marini
+// Equipe: Eduardo Ribeiro Marini, Guilherme Ferreira Silva, João Pedro Ferreira Silva
 
 // Definição da struct para armazenar os dados das palavras fictícias
 struct DadosPalavra {
