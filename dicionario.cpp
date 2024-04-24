@@ -6,6 +6,29 @@ using namespace std;
 // Tema do projeto: Dicionário para Línga Fictícia
 // Equipe: Eduardo Ribeiro Marini, Guilherme Ferreira Silva, João Pedro Ferreira Silva
 
+// Exemplo de palavras fictícias:
+//Vegur: Meditar 
+//Vegafor: Espiar 
+//Guilir: Rodar 
+//Gyukin ou Kabal : Avião
+//Dalsir: Flutuar / Sonhar
+//Dhalp ou Scorp: Tapete
+//Kenpuf: Faixa 
+//Kenzaki: Espada / Habilidade
+//Kensir ou Barak: Correr
+//Balroq ou Jax: Golpear 
+//Blankaor: Criatura
+//Hadokenki: Luvas 
+//Hondat: Capacete / proteção
+//Honditar: Lutar
+//Zangst: Determinação / Coragem
+//Zanggur: Força
+//Ryusen ou Liuk: Treinar 
+//Ryukin: Atacar / Superar
+
+
+ 
+
 // Definição da struct para armazenar os dados das palavras fictícias
 struct DadosPalavra {
     string palavraFicticia;
