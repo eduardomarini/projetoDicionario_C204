@@ -172,6 +172,24 @@ void listWordsByTranslation(TreeNode* node, string traducao) {
     }
 }
 
+void listTranslations(TreeNode* root, string palavraFicticia) {
+    // Busque a palavra ficitícia na árvore
+    TreeNode* node = search(root, palavraFicticia);
+    // Se o vértice foi encontrado, imprima suas traduções
+    if (node != nullptr) {
+        // Se encontrou o nó, imprima as traduções
+        cout << "Traducoes para a palavra ficticia \"" << palavraFicticia << "\":" << endl;
+        NodeTraducao* tradTemp = node->vertice->traducoes;
+        while (tradTemp != nullptr) {
+            cout << "- " << tradTemp->traducao << endl;
+            tradTemp = tradTemp->next;
+        }
+    } else {
+        // Se a palavra fictícia não foi encontrada, informe o usuário
+        cout << "A palavra ficticia \"" << palavraFicticia << "\" nao foi encontrada." << endl;
+    }
+}
+
 void insertTranslation(NodeTraducao*& head, string traducao) {
     NodeTraducao* newTrad = new NodeTraducao(traducao);
     // Se a lista está vazia ou a nova tradução é menor que a primeira tradução, insira no inicio
@@ -283,18 +301,16 @@ void destructTree(TreeNode* node) {
 }
 
 int main() {
-    // Crie um ponteiro para a raiz da árvore
     TreeNode* root = nullptr;
 
-    // Loop principal do programa
     while (true) {
-        // Menu principal
         cout << "Escolha uma opcao:" << endl;
         cout << "1. Inserir palavras" << endl;
-        cout << "2. Listar palavras por traducao" << endl;
+        cout << "2. Buscar por traducao" << endl;
         cout << "3. Remover palavra" << endl;
-        cout << "4. Calcular distancia entre palavras" << endl;
-        cout << "5. Sair" << endl;
+        cout << "4. Buscar por palavra" << endl;
+        cout << "5. Calcular distancia entre palavras" << endl;
+        cout << "6. Sair" << endl;
 
         int opcao;
         cin >> opcao;
@@ -350,6 +366,18 @@ int main() {
             }
 
         } else if (opcao == 4) {
+            // Listar traduções de uma palavra fictícia
+            while (true) {
+                cout << "Digite a palavra ficticia para listar as traducoes: " << endl;
+                string palavra;
+                cin >> palavra;
+                if (palavra == "fim") {
+                    break;
+                }
+                listTranslations(root, palavra);
+            }
+
+        } else if (opcao == 5) {
             // Calcular distância entre palavras
             while (true) {
                 cout << "Deseja calcular a distancia entre duas palavras ficticias? (s/n): " << endl;
@@ -361,7 +389,7 @@ int main() {
                 findDistance(root);
             }
 
-        } else if (opcao == 5) {
+        } else if (opcao == 6) {
             // Sair do programa
             break;
 
@@ -375,4 +403,3 @@ int main() {
 
     return 0;
 }
-
