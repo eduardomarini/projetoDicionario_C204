@@ -219,6 +219,25 @@ void insertVert(TreeNode*& root) {
     root = insert(root, vertice);
 }
 
+void destructTree(TreeNode* node) {
+    if (node != nullptr) {
+        destructTree(node->left);
+        destructTree(node->right);
+
+        // Liberar a lista de traduções do vérice
+        NodeTraducao* current = node->vertice->traducoes;
+        while (current != nullptr) {
+            NodeTraducao* next = current->next;
+            delete current;
+            current = next;
+        }
+
+        // Libera o vértice e o nó
+        delete node->vertice;
+        delete node;
+    }
+}
+
 
 int main() {
     // Crie um ponteiro para a raiz da árvore
@@ -250,6 +269,8 @@ int main() {
         cout << "\nPalavras ficticias para a traducao \"" << traducao << "\":\n";
         listWordsByTranslation(root, traducao);
     }
+
+    destructTree(root);
 
     return 0;
 }
