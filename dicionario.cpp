@@ -282,49 +282,97 @@ void destructTree(TreeNode* node) {
     }
 }
 
-
 int main() {
     // Crie um ponteiro para a raiz da árvore
     TreeNode* root = nullptr;
 
-    // Enquanto o usuário quiser inserir palavras, chame a função insertVert
+    // Loop principal do programa
     while (true) {
-        insertVert(root);
-        cout << "Deseja inserir outra palavra? (s/n): ";
-        string opcao;
+        // Menu principal
+        cout << "Escolha uma opcao:" << endl;
+        cout << "1. Inserir palavras" << endl;
+        cout << "2. Listar palavras por traducao" << endl;
+        cout << "3. Remover palavra" << endl;
+        cout << "4. Calcular distancia entre palavras" << endl;
+        cout << "5. Sair" << endl;
+
+        int opcao;
         cin >> opcao;
-        if (opcao != "s") {
+
+        if (opcao == 1) {
+            // Inserir palavras
+            while (true) {
+                insertVert(root);
+                cout << "Deseja inserir outra palavra? (s/n): " << endl;
+                string opcao;
+                cin >> opcao;
+                if (opcao != "s") {
+                    break;
+                }
+            }
+
+            // Imprima a árvore em ordem
+            cout << "Grafo: " << endl;
+            inOrder(root);
+
+        } else if (opcao == 2) {
+            // Listar palavras por tradução
+            while (true) {
+                string traducao;
+                cout << "Digite uma traducao para listar palavras ficticias (ou 'fim' para terminar): " << endl;
+                cin >> traducao;
+                if (traducao == "fim") {
+                    break;
+                }
+                cout << "Palavras ficticias para a traducao \"" << traducao << "\":" << endl;
+                listWordsByTranslation(root, traducao);
+            }
+
+        } else if (opcao == 3) {
+            // Remover palavra fictícia
+            while (true) {
+                cout << "Digite a palavra ficticia a ser removida: " << endl;
+                string palavra;
+                cin >> palavra;
+                root = remove(root, palavra);
+
+                // Imprime a árvore atualizada em ordem
+                cout << "Grafo atualizado: " << endl;
+                inOrder(root);
+
+                // Pergunte se o usuário deseja remover outra palavra fictícia
+                cout << "Deseja remover outra palavra ficticia? (s/n): " << endl;
+                string opcao;
+                cin >> opcao;
+                if (opcao != "s") {
+                    break;
+                }
+            }
+
+        } else if (opcao == 4) {
+            // Calcular distância entre palavras
+            while (true) {
+                cout << "Deseja calcular a distancia entre duas palavras ficticias? (s/n): " << endl;
+                string opcao;
+                cin >> opcao;
+                if (opcao != "s") {
+                    break;
+                }
+                findDistance(root);
+            }
+
+        } else if (opcao == 5) {
+            // Sair do programa
             break;
+
+        } else {
+            cout << "Opcao invalida, por favor tente novamente." << endl;
         }
     }
 
-    // Imprima a árvore em ordem
-    cout << "\nGrafo:\n";
-    inOrder(root);
-
-    // Enquanto o usuário quiser listar palavras por tradução, chame a função listWordsByTranslation
-    while (true) {
-        string traducao;
-        cout << "\nDigite uma traducao para listar palavras ficticias (ou 'fim' para terminar): ";
-        cin >> traducao;
-        if (traducao == "fim") {
-            break;
-        }
-        cout << "\nPalavras ficticias para a traducao \"" << traducao << "\":\n";
-        listWordsByTranslation(root, traducao);
-    }
-
-    while(true) {
-        cout << "\nDeseja calcular a distancia entre duas palavras ficticias? (s/n): " << endl;
-        string opcao;
-        cin >> opcao;
-        if (opcao != "s") {
-            break;
-        }
-        findDistance(root);
-    }
-
+    // Destruir a árvore e liberar memória
     destructTree(root);
 
     return 0;
 }
+
