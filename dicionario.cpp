@@ -23,6 +23,7 @@
 
 #include <iostream>
 #include <string>
+#include <cmath>
 
 using namespace std;
 
@@ -219,6 +220,49 @@ void insertVert(TreeNode*& root) {
     root = insert(root, vertice);
 }
 
+// Função para calcular a distância euclidiana entre dois vértices
+double euclideanDistance(Vertice* v1, Vertice* v2) {
+    return sqrt(pow(v1->x - v2->x, 2) + pow(v1->y - v2->y, 2) + pow(v1->z - v2->z, 2));
+}
+
+// Função para encontrar a distância euclidiana entre duas palavras ficitícias
+void findDistance(TreeNode* node) {
+    string palavra1, palavra2;
+
+    while(true) {
+        // Solicite ao usuário que digite as palavras ficitícias
+        cout << "Digite a primeira palavra ficticia: " << endl;
+        cin >> palavra1;
+        cout << "Digite a segunda palavra ficticia: " << endl;
+        cin >> palavra2;
+
+        // Procure pelos vértices correspondentes as palavras
+        TreeNode* node1 = search(node, palavra1);
+        TreeNode* node2 = search(node, palavra2);
+
+    // Se amobos os vértices foram encontrados, calcule e mostre a distância
+        if (node1 != nullptr && node2 != nullptr) {
+            double distance = euclideanDistance(node1->vertice, node2->vertice);
+            cout << "A distancia euclidiana entre as palavras " << palavra1 << " e " << palavra2 << " eh: " << distance << endl;   
+            break;
+        } else {
+            // Se qualquer uma das palavras não for encontrada, informe o usuário
+            if (node1 == nullptr) {
+                cout << "A palavra " << palavra1 << " nao foi encontrada." << endl;
+            }
+            if (node2 == nullptr) {
+                cout << "A palavra " << palavra2 << " nao foi encontrada." << endl;
+            }
+            cout << "Deseja tentar novamente? (s/n): " << endl;
+            string opcao;
+            cin >> opcao;
+            if (opcao != "s") {
+                break;
+            }
+        }
+    }
+}
+
 void destructTree(TreeNode* node) {
     if (node != nullptr) {
         destructTree(node->left);
@@ -268,6 +312,16 @@ int main() {
         }
         cout << "\nPalavras ficticias para a traducao \"" << traducao << "\":\n";
         listWordsByTranslation(root, traducao);
+    }
+
+    while(true) {
+        cout << "\nDeseja calcular a distancia entre duas palavras ficticias? (s/n): " << endl;
+        string opcao;
+        cin >> opcao;
+        if (opcao != "s") {
+            break;
+        }
+        findDistance(root);
     }
 
     destructTree(root);
