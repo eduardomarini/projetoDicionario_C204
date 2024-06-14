@@ -6,7 +6,7 @@
 //Vegafor: Espiar 
 //Guilir: Rodar 
 //Gyukin ou Kabal : Avião
-//Dalsir: Flutuar / Sonhar
+//Dalsir: Sonhar / Flutuar
 //Dhalp ou Scorp: Tapete
 //Kenpuf: Faixa 
 //Kenzaki: Espada / Habilidade
@@ -171,6 +171,24 @@ void listWordsByTranslation(TreeNode* node, string traducao) {
     }
 }
 
+void insertTranslation(NodeTraducao*& head, string traducao) {
+    NodeTraducao* newTrad = new NodeTraducao(traducao);
+    // Se a lista está vazia ou a nova tradução é menor que a primeira tradução, insira no inicio
+    if(head == nullptr || head->traducao > traducao) {
+        newTrad->next = head;
+        head = newTrad;
+    } else {
+        // Encontre a posição correta para inserir a nova tradução
+        NodeTraducao* current = head;
+        while (current->next != nullptr && current->next->traducao < traducao) {
+            current = current->next;
+        }
+        // Insira a nova tradução após 'current'
+        newTrad->next = current->next;
+        current->next = newTrad;
+    }
+}
+
 // Função para inserir um vértice na lista de vértices
 void insertVert(TreeNode*& root) {
     // Peça ao usuário para digitar a palavra fictícia
@@ -190,9 +208,7 @@ void insertVert(TreeNode*& root) {
     string traducao;
     // Enquanto o usuário não digitar 'fim', adicione a tradução à lista de traduções do vértice
     while (cin >> traducao && traducao != "fim") {
-        NodeTraducao* newTrad = new NodeTraducao(traducao);
-        newTrad->next = vertice->traducoes;
-        vertice->traducoes = newTrad;
+        insertTranslation(vertice->traducoes, traducao);
     }
 
     // Peça ao usuário para digitar as coordenadas x, y e z
@@ -202,6 +218,7 @@ void insertVert(TreeNode*& root) {
     // Insira o vértice na árvore
     root = insert(root, vertice);
 }
+
 
 int main() {
     // Crie um ponteiro para a raiz da árvore
